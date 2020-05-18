@@ -43,13 +43,17 @@ public class Customer implements ICustomer {
 	 * @throws Exception
 	 */
 	public Customer(String customerString) throws Exception{
-		String[] customerSplit = customerString.trim().split(CustomerFile.DELIMITER);
-		if(customerSplit.length == CustomerFile.values().length){
-			this.accountNo = Long.parseLong(customerSplit[CustomerFile.ACCOUNT.ordinal()].trim());
-			this.name = customerSplit[CustomerFile.NAME.ordinal()].trim();
-			this.address = customerSplit[CustomerFile.ADDRESS.ordinal()].trim();
-			this.phoneNo = Long.parseLong(customerSplit[CustomerFile.PHONENUMBER.ordinal()].trim());
-		}else{
+		try {
+			String[] customerSplit = customerString.trim().split(CustomerFile.DELIMITER);
+			if(customerSplit.length == CustomerFile.values().length){
+				this.accountNo = Long.parseLong(customerSplit[CustomerFile.ACCOUNT.ordinal()].trim());
+				this.name = customerSplit[CustomerFile.NAME.ordinal()].trim();
+				this.address = customerSplit[CustomerFile.ADDRESS.ordinal()].trim();
+				this.phoneNo = Long.parseLong(customerSplit[CustomerFile.PHONENUMBER.ordinal()].trim());
+			}else{
+				throw new Exception("Invalid customer data");
+			}
+		} catch (Exception e) {
 			throw new Exception("Invalid customer data");
 		}
 	}

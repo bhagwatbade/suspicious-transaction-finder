@@ -50,15 +50,19 @@ public class Transaction implements ITransaction {
 	 * @throws Exception
 	 */
 	public Transaction(String transactionString) throws Exception{
-		String[] transactionSplit =  transactionString.trim().split(TransactionFile.DELIMITER);
-		if(transactionSplit.length == TransactionFile.values().length){
-			this.transactionId = transactionSplit[TransactionFile.TRANSACTIONID.ordinal()].trim();
-			Date date = TransactionFile.DATE_FORMAT.parse(transactionSplit[TransactionFile.TRANSACTIONDATE.ordinal()].trim());
-			this.transactionDate = date.getTime();
-			this.fromAccount = Long.parseLong(transactionSplit[TransactionFile.FROMACCOUNT.ordinal()].trim());
-			this.toAccount = Long.parseLong(transactionSplit[TransactionFile.TOACCOUNT.ordinal()].trim());
-			this.amount = Double.parseDouble(transactionSplit[TransactionFile.AMOUNT.ordinal()].trim());
-		}else{
+		try {
+			String[] transactionSplit =  transactionString.trim().split(TransactionFile.DELIMITER);
+			if(transactionSplit.length == TransactionFile.values().length){
+				this.transactionId = transactionSplit[TransactionFile.TRANSACTIONID.ordinal()].trim();
+				Date date = TransactionFile.DATE_FORMAT.parse(transactionSplit[TransactionFile.TRANSACTIONDATE.ordinal()].trim());
+				this.transactionDate = date.getTime();
+				this.fromAccount = Long.parseLong(transactionSplit[TransactionFile.FROMACCOUNT.ordinal()].trim());
+				this.toAccount = Long.parseLong(transactionSplit[TransactionFile.TOACCOUNT.ordinal()].trim());
+				this.amount = Double.parseDouble(transactionSplit[TransactionFile.AMOUNT.ordinal()].trim());
+			}else{
+				throw new Exception("Invalid transaction data");
+			}
+		} catch (Exception e) {
 			throw new Exception("Invalid transaction data");
 		}
 	}

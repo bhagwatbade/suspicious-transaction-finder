@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -106,4 +107,12 @@ public class ReportGeneratorTest {
 
 		return sb.toString();
 	}
+	
+	@Test
+	public void noSuspiciousTransactionReport() throws Exception{
+		IReportGenerator reportGenerator = new ReportGenerator();
+		reportGenerator.generateSuspiciousTransactionReport(new HashSet<ITransactionModel>(1));
+		assertEquals(outContent.toString(), "No suspicious transactions found\n");
+	}
+	
 }

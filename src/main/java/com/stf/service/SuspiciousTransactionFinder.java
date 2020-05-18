@@ -5,10 +5,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.stf.idao.ICustomerDAO;
 import com.stf.imodel.ICustomerModel;
 import com.stf.imodel.ITransactionModel;
 import com.stf.iservice.ISuspiciousTransactionFinder;
@@ -31,8 +29,11 @@ public class SuspiciousTransactionFinder implements ISuspiciousTransactionFinder
 			boolean test = false;
 			ICustomerModel fromCustomer = customers.get(transaction.getFromAccount());
 			ICustomerModel toCustomer = customers.get(transaction.getToAccount());
-			if ((fromCustomer.getAddress().equals(toCustomer.getAddress()))
-					&& (fromCustomer.getPhoneNo().equals(toCustomer.getPhoneNo())))
+			
+			
+			if ((fromCustomer == null || toCustomer == null) || 
+				((fromCustomer.getAddress().equals(toCustomer.getAddress())) &&
+				(fromCustomer.getPhoneNo().equals(toCustomer.getPhoneNo()))))
 				test = true;
 			return test;
 		}).collect(Collectors.toCollection(LinkedHashSet::new ));

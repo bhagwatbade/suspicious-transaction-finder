@@ -20,6 +20,8 @@ Maven 3.6.3
 * Customer uniqueness is depend on account number.
 * Transaction uniqueness is depends on transaction id.
 * Application only trim customer address and not make any changes in it.
+* **If there is no customer found for debited account or for credited account then such transaction treated as suspious transactions.**
+* If we won't get any suspious transaction then we show message **No suspicious transactions found** in response.
 
 ### How to run project
 * Go to root folder where **pom.xml** keept.

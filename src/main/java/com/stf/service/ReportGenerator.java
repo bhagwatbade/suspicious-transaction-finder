@@ -26,6 +26,11 @@ public class ReportGenerator implements IReportGenerator {
 	@Override
 	public void generateSuspiciousTransactionReport(Set<ITransactionModel> suspiciousTransactions) {
 		
+		if(suspiciousTransactions == null || suspiciousTransactions.isEmpty()){
+			System.out.println("No suspicious transactions found");
+			return;
+		}
+		
 		Map<Integer, List<String>> transactionByMonth = new TreeMap<>();
 		Map<Long, List<Long>> suspiciousAccounts = new LinkedHashMap<Long, List<Long>>();
 		
